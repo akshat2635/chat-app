@@ -51,6 +51,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       fullName: user.fullName,
       username: user.username,
+      profilePic:user.profilePic
     });
   } catch (error) {
     console.log("Error in login controller:", error.message);
@@ -88,7 +89,7 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const checkAuth=()=>{
+export const checkAuth=(req,res)=>{
   try {
     res.status(200).json(req.user);
   } catch (error) {
