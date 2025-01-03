@@ -9,13 +9,18 @@ import ProfilePage from './pages/ProfilePage'
 import { useAuthStore } from './store/useAuthStore'
 import {Loader} from "lucide-react"
 import {Toaster} from "react-hot-toast"
+import { useThemeStore } from './store/useThemeStore'
 
 const App = () => {
   const {user,checkAuth,isCheckingAuth}=useAuthStore();
+  const {theme}=useThemeStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
   console.log(user);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
   if(isCheckingAuth && !user){
     return (
       <div className='flex items-center justify-center h-screen'>

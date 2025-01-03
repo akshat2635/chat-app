@@ -53,5 +53,18 @@ login: async (data)=>{
     } finally {
       set({ isSigningIn: false });
     }
-  }
+  },
+  updateProfile: async (data)=>{
+    set({isUpdating:true});
+    try {
+      const res=await axiosInstance.put("/auth/update-profile",data);
+      set({user:res.data});
+      toast.success("Profile Updated Successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    } finally{
+      set({isUpdating:false});
+    }
+  },
 }));
