@@ -5,7 +5,7 @@ import User from "../models/user.model.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
     const userId = req.user._id;
-    const filtered_users = User.find({ _id: { $ne: userId } }).select(
+    const filtered_users =await User.find({ _id: { $ne: userId } }).select(
       "-password"
     );
     res.status(200).json(filtered_users);
@@ -24,7 +24,7 @@ export const getMessages = async (req, res) => {
         { senderId: myId, receiverId: userToChat },
         { senderId: userToChat, receiverId: myId },
       ],
-    }).sort({ createdAt: -1 });
+    });
 
     res.status(200).json(messages);
   } catch (error) {
