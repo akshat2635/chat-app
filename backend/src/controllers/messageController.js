@@ -1,4 +1,5 @@
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
 
@@ -50,8 +51,12 @@ export const sendMessage = async (req, res) => {
       senderId,
     });
     await message.save();
+    const  recieverSocketId=getReceiverSocketId(receiverId);
+    if(recieverSocketId){
+      io.to(recieverSocketId).emit('newMessage', message);
+    }
 
-    res.status(201).json({ message: "Message sent successfully" });
+    res.status(201).json(message);
   } catch (error) {
     console.error("error in sendMessage:", error.message);
     res.status(500).json({ message: "Error sending message" });
