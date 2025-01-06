@@ -7,6 +7,7 @@ const MessagesInput = () => {
   const [imagePreview, setImagePreview] = useState("");
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
@@ -19,10 +20,12 @@ const MessagesInput = () => {
       setImagePreview(reader.result);
     };
   };
-  const removeImage = (e) => {
+
+  const removeImage = () => {
     setImagePreview("");
     fileInputRef.current.value = "";
   };
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
@@ -38,6 +41,7 @@ const MessagesInput = () => {
       console.error("failed to send message:", error);
     }
   };
+
   return (
     <div className="p-4 w-full">
       {imagePreview && (
@@ -78,11 +82,11 @@ const MessagesInput = () => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
+            className={`sm:w-10 sm:h-10 w-8 h-8 rounded-full flex items-center justify-center 
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
-            <Image size={20} />
+            <Image size={18} />
           </button>
         </div>
         <button
