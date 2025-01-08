@@ -46,7 +46,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
     const isMatch = await bcrypt.compare(password, user?.password || "");
     if (!user || !isMatch)
-      return res.status(401).json({ msg: `Invalid username or password` });
+      return res.status(401).json({ message: `Invalid username or password` });
 
     generateToken(user._id, res);
     res.status(200).json({
@@ -57,16 +57,16 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in login controller:", error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 export const logout = (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });
-    res.status(200).json({ msg: "Logged out successfully" });
+    res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.log("Error in logout controller:", error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -87,7 +87,7 @@ export const updateProfile = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.log("Error in updateProfile controller:", error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -96,6 +96,6 @@ export const checkAuth=(req,res)=>{
     res.status(200).json(req.user);
   } catch (error) {
     console.log("Error in checkAuth controller:", error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }
