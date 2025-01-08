@@ -17,7 +17,7 @@ const ChatContainer = () => {
     subscribeToMessages();
 
     return () => unsubscribeFromMessages();
-  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+  }, [messages,selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
@@ -85,9 +85,9 @@ const ChatContainer = () => {
                   <div className="size-10 rounded-full">
                     <img
                       src={
-                        message.senderId === user._id
-                          ? user.profilePic
-                          : selectedUser.profilePic
+                        message.senderId === selectedUser._id
+                          ? selectedUser.profilePic
+                          : user.profilePic
                       }
                     />
                   </div>
