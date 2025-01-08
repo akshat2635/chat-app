@@ -9,7 +9,7 @@ export const signup = async (req, res) => {
     if (!fullName || !username || !password)
       return res.status(400).json({ message: "all fields are required" });
     const user = await User.findOne({ username });
-    console.log(username);
+    // console.log(username);
     if (user)
       return res.status(400).json({ message: "username already exists" });
     const def_image = `https://avatar.iran.liara.run/username?username=${fullName
@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
       generateToken(newUser._id, res);
       await newUser.save();
       res.status(201).json({
-        _id:user._id,
+        _id:newUser._id,
         fullName: newUser.fullName,
         username: newUser.username,
         profilePic: newUser.profilePic,
