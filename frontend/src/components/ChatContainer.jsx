@@ -77,7 +77,7 @@ const ChatContainer = () => {
               )}
               <div
                 className={`chat ${
-                  message.senderId === user._id ? "chat-end" : "chat-start"
+                  message.senderId === selectedUser._id ? "chat-start" : "chat-end"
                 }`}
                 ref={messageEndRef}
               >
